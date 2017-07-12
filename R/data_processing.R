@@ -5,12 +5,12 @@ library(phyndr)
 
 all_dat <- read.csv("data/vert_db.csv")
 all_dat <- mutate(all_dat, binomial=paste(Genus, species, sep="_"))
+all_dat <- mutate(all_dat, binomial=gsub("[-]", replacement="", binomial))
+all_dat <- mutate(all_dat, binomial=gsub("*([0-9])", replacement="", binomial))
+
 fish_dat <- filter(all_dat, Higher.taxonomic.group=="Fish")
 squa_dat <- filter(all_dat, Order=="Squamata")
 amph_dat <- filter(all_dat, Higher.taxonomic.group=="Amphibia")
-rownames(fish_dat) <- fish_dat$binomial
-rownames(squa_dat) <- squa_dat$binomial
-rownames(amph_dat) <- amph_dat$binomial
 
 fish_tre <- read.tree("data/fish.tre")
 squa_tre <- read.tree("data/squa.tre")
@@ -21,11 +21,19 @@ fish_tre <- phangorn::nnls.tree(cophenetic(fish_tre),fish_tre,rooted=TRUE)
 squa_tre <- phangorn::nnls.tree(cophenetic(squa_tre),squa_tre,rooted=TRUE)
 amph_tre <- phangorn::nnls.tree(cophenetic(amph_tre),amph_tre,rooted=TRUE)
 
-fish_match <- phyndr::phyndr_genus(fish_tre, rownames(fish_dat))
-squa_match <- phyndr::phyndr_genus(squa_tre, rownames(squa_dat))
-amph_match <- phyndr::phyndr_genus(amph_tre, rownames(amph_dat))
+fish_spp <- unique(fish_dat$binomial)
+squa_spp <- unique(squa_dat$binomial)
+amph_spp <- unique(amph_dat$binomial)
 
-saveRDS(fish_match, "output/fish_tree_proc.rds")
-saveRDS(squa_match, "output/squa_tree_proc.rds")
-saveRDS(amph_match, "output/amph_tree_proc.rds")
+fish_match <- phyndr::phyndr_genus(fish_tre, fish_spp)
+squa_match <- phyndr::phyndr_genus(squa_tre, squa_spp)
+amph_match <- phyndr::phyndr_genus(amph_tre, amph_spp)
+
+fish_out <- list(phy=fish_match, dat=fish_dat)
+squa_out <- list(phy=squa_match, dat=squa_dat)
+amph_out <- list(phy=amph_match, dat=amph_dat)
+
+saveRDS(fish_out, "output/fish_proc.rds")
+saveRDS(squa_out, "output/squa_proc.rds")
+saveRDS(amph_out, "output/amph_proc.rds")
 
