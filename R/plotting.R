@@ -1,3 +1,10 @@
+library(scales)
+
+## colours 
+cols <- c("#053061", "#78B7C5", "firebrick3", "#EE6363", "#0B775E", "#D8B70A",
+          "#999999", "#252A30")
+names(cols) <- c("mhet", "mhom", "fhet", "fhom", "esd", "herm", "lg", "dg")
+
 add.profile.shading <- diversitree:::add.profile.shading
 
 profile.block <- function(y, col.line, col.fill, col.l, col.g,
@@ -32,3 +39,22 @@ profile.block <- function(y, col.line, col.fill, col.l, col.g,
   hist.outline(hh, col=col.line, lwd=lwd)
   add.profile.shading(hh, ci, alpha(col.fill, a.fill))
 }
+
+## Draw the outline of a histogram
+hist.outline <- function(h, ..., density=TRUE) {
+  xy <- hist.xy(h, density)
+  lines(xy, ...)
+}
+hist.fill <- function(h, ..., density=TRUE) {
+  xy <- hist.xy(h, density)
+  polygon(xy, ...)
+}
+
+hist.xy <- function(h, density=TRUE) {
+  dx <- diff(h$mids[1:2])
+  xx <- rep(with(h, c(mids - dx/2, mids[length(mids)] + 
+                        dx/2)), each = 2)
+  yy <- c(0, rep(if (density) h$density else h$counts, each = 2), 0)
+  list(x=xx, y=yy)
+}
+

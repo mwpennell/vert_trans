@@ -1,13 +1,14 @@
 source("R/util.R")
+source("R/plotting.R")
 
 esd.f <- readRDS("output/esd-gsd/fish_sampdata_10_results.rds")
 esd.s <- readRDS("output/esd-gsd/squa_sampdata_10_results.rds")
 
 ## Remove burnin from all samples
 esd.f <- lapply(esd.f, function(x) x[-seq_len(10000),])
-esd.f <- dplyr::rbind_all(esd.f)
+esd.f <- dplyr::bind_rows(esd.f)
 esd.s <- lapply(esd.s, function(x) x[-seq_len(10000),])
-esd.s <- dplyr::rbind_all(esd.s)
+esd.s <- dplyr::bind_rows(esd.s)
 
 esd.f$d <- esd.f$q01 - esd.f$q10
 profile.block(esd.f$d, col.line=cols["dg"], col.fill=cols["dg"],
