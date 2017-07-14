@@ -5,6 +5,7 @@ library(phyndr)
 
 all_dat <- read.csv("data/vert_db.csv")
 all_dat <- mutate(all_dat, binomial=paste(Genus, species, sep="_"))
+all_dat <- mutate(all_dat, binomial=gsub(" [A-Z]", replacement="", binomial))
 all_dat <- mutate(all_dat, binomial=gsub("[-]", replacement="", binomial))
 all_dat <- mutate(all_dat, binomial=gsub("*([0-9])", replacement="", binomial))
 
