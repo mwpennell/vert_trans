@@ -19,7 +19,7 @@ build_het_hom <- function(file_name, n_samp){
     y
   }
   
-  h.states <- sapply(dd[,10], function(x) h.code(x))
+  h.states <- sapply(dd[,k], function(x) h.code(x))
   
   ## find genotypic states
   g <- grep("Genotypic", colnames(dd))[1]
@@ -30,23 +30,32 @@ build_het_hom <- function(file_name, n_samp){
   
   ## build matrix for analysis
   hg <- cbind(h.states, g.states)
-  rownames(hg) <- dd$name
+  rownames(hg) <- dd$binomial
   colnames(hg) <- c("H", "G")
+  
+  ## add binomial for phyndr
+  hg <- as.data.frame(hg)
+  hg$binomial <- rownames(hg)
   
   out <- list(phy=phy, data=hg)
   
-  saveRDS(out, paste0("output/het_hom/", clade, "_fulldata", ".rds"))
+  saveRDS(out, paste0("output/het-hom/", clade, "_fulldata", ".rds"))
   
   ## match to tree
   ptd <- phyndr_treedata(out, n_samp)
+  
+  ## get rid of binomial
   ptd <- lapply(ptd, function(x) {
-    dat <- as.numeric(x$data[,"gon.herm"])
-    names(dat) <- rownames(x$data)
+    dat <- as.data.frame(x$data[,c("H", "G")])
+    dat$G <- unfactor(dat$G)
+    dat$H <- unfactor(dat$H)
     list(phy = x$phy, dat=dat)
   })
   
-  saveRDS(ptd, paste0("output/het_hom/", clade, "_sampdata_", n_samp, ".rds"))
+  saveRDS(ptd, paste0("output/het-hom/", clade, "_sampdata_", n_samp, ".rds"))
 }
+
+source("R/util.R")
 
 ## Build fish data
 build_het_hom("output/fish_proc.rds", 10)

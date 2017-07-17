@@ -39,5 +39,7 @@ build_gon_herm <- function(file_name, n_samp){
   saveRDS(ptd, paste0("output/gon-herm/", clade, "_sampdata_", n_samp, ".rds"))
 }
 
+source("R/util.R")
+
 ## Build fish data
 build_gon_herm("output/fish_proc.rds", 10)
