@@ -48,6 +48,20 @@ build.tab.xz <- function(cache){
   dat
 }
 
+
+build.tab.xz.alldat <- function(x){
+  st <- x$dat
+  mhom <- length(intersect(which(st[,1] == 0), which(st[,2] == 0)))
+  mhet <- length(intersect(which(st[,1] == 1), which(st[,2] == 0)))
+  fhom <- length(intersect(which(st[,1] == 0), which(st[,2] == 1)))
+  fhet <- length(intersect(which(st[,1] == 1), which(st[,2] == 1)))
+  uhom <- length(intersect(which(st[,1] == 0), which(is.na(st[,2]))))
+  
+  dat <- c(mhom, mhet, fhom, fhet, uhom)
+  names(dat) <- c("male.hom", "male.het", "fem.hom", "fem.het", "unk.hom")
+  dat
+}
+
 trans.multitrait <- function(x){
   cc <- cache.mcmc(x)
   lik <- make.musse.multitrait(cc$info$phy, data.frame(cc$states),
