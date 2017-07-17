@@ -65,6 +65,18 @@ get.pars <- function(p, lik){
 unfactor <- function(x)
   as.numeric(levels(x)[as.integer(x)])
 
+state_summary_mk <- function(x, col.names){
+  tmp <- lapply(x, function(y){
+    cm <- cache.mcmc(y)
+      a <- length(which(cm$states == 1))
+      b <- length(which(cm$states == 2))
+      data.frame(a=a, b=b)
+  })
+  tmp <- bind_rows(tmp)
+  colnames(tmp) <- col.names
+  summarise_all(tmp, funs(mean))
+}
+
 
 
 
