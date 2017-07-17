@@ -22,5 +22,9 @@ run_mk_sample <- function(file_name, exp_pr=10, n_step=50000){
   saveRDS(out, paste0(stem, "_results", ".rds"))
 }
 
+## ESD-GSD
 run_mk_sample("output/esd-gsd/fish_sampdata_10.rds")
 run_mk_sample("output/esd-gsd/squa_sampdata_10.rds")
+
+## HERM-GONO
+run_mk_sample("output/gon-herm/fish_sampdata_10.rds")

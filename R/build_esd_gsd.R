@@ -34,7 +34,7 @@ build_esd_gsd <- function(file_name, n_samp){
   ## remove NAs
   esd <- na.omit(esd)
   
-  out <- list(phy=phy, dat=esd)
+  out <- list(phy=phy, data=esd)
   
   saveRDS(out, paste0("output/esd-gsd/", clade, "_fulldata", ".rds"))
   
@@ -52,4 +52,5 @@ build_esd_gsd <- function(file_name, n_samp){
 
 ## Build fish data
 build_esd_gsd("output/fish_proc.rds", 10)
+## Build squamate data
 build_esd_gsd("output/squa_proc.rds", 10)
