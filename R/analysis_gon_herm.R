@@ -1,7 +1,7 @@
 source("R/util.R")
 source("R/plotting.R")
 
-## ESD to GSD
+## Gono to herm
 
 gon.f <- readRDS("output/gon-herm/fish_sampdata_10_results.rds")
 
@@ -21,11 +21,12 @@ length(which(gon.f$d < 0))/nrow(gon.f)
 gon.f$r <- gon.f$q01 / gon.f$q10
 median(gon.f$r)
 
-dev.off()
-pdf("figs/gono-herm-draft.pdf")
-profile.block(gon.f$d, col.line=cols["dg"], col.fill=cols["dg"],
-              col.l=cols["herm"], col.g=cols["mhet"], cex.lab=1.25,
-              cex.axis=1.25,
-              xlab="Net transition rate from gonochorism to hermaphroditism",
-              main="Fish")
-dev.off()
+p <- ggplot(gon.f, aes(x=d))
+p <- p + geom_histogram(bins = 50, fill=cols[6], alpha=1)
+p <- p + ylab("Posterior density") + xlab("Net transition rate (Gonochorism to Hermaphroditism)")
+p <- p + geom_vline(aes(xintercept=0))
+p <- p + theme(panel.background=element_blank(), 
+               axis.ticks.y = element_blank(),
+               axis.text.y=element_blank())
+p
+ggsave(filename = "figs/gono-herm-fish.pdf")

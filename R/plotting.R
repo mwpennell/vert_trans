@@ -58,3 +58,6 @@ hist.xy <- function(h, density=TRUE) {
   list(x=xx, y=yy)
 }
 
+
+
+
