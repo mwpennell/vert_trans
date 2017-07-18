@@ -46,3 +46,29 @@ profile.block(esd.s$d, col.line=cols["dg"], col.fill=cols["dg"],
               xlim=c(-0.029,0.0025), main="Squamates")
 dev.off()
 
+profile.block(esd.f$d, col.line=cols[1], col.fill=cols[2],
+              col.l="white", col.g="white",  cex.lab=1,
+              cex.axis=1, xlim=c(-0.1,0.0025), vline=0,
+              xlab="Net transition rate from GSD to ESD", main="Fish")
+
+
+p <- ggplot(esd.f, aes(x=d))
+p <- p + geom_histogram(bins = 50, fill=cols[5], alpha=1) + xlim(-0.15,0.005)
+p <- p + ylab("Posterior density") + xlab("Net transition rate (GSD to ESD)")
+p <- p + geom_vline(aes(xintercept=0))
+p <- p + theme(panel.background=element_blank(), 
+               axis.ticks.y = element_blank(),
+               axis.text.y=element_blank())
+p
+ggsave(filename = "figs/esd-gsd-fish.pdf")
+q <- ggplot(esd.s, aes(x=d))
+q <- q + geom_histogram(bins = 50, fill=cols[5], alpha=1) + xlim(-0.029,0.0025)
+q <- q + xlab("Net transition rate (GSD to ESD)")
+q <- q + geom_vline(aes(xintercept=0))
+q <- q + theme(panel.background=element_blank(), 
+               axis.ticks.y = element_blank(),
+               axis.text.y=element_blank(),
+               axis.title.y=element_blank())
+q
+ggsave("figs/esd-gsd-squa.pdf")
+
