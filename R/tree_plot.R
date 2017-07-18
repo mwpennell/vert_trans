@@ -49,9 +49,9 @@ diversitree::trait.plot(phy.a, dat=dat.a, cols=cols,
 dev.off()
 pdf(file="figs/tree-plot.pdf",height=4, width=12)
 par(mfrow=c(1,3))
-trait.plot(phy.f, dat=dat.f, cols=cols, class=fam.f, w=1/20, legend=FALSE, cex.lab=0.5, margin=1/2.5)
-trait.plot(phy.s, dat=dat.s, cols=cols, class=fam.s, w=1/20, legend=FALSE, cex.lab=0.5, margin=1/2.5)
-trait.plot(phy.a, dat=dat.a, cols=cols, class=fam.a, w=1/20, legend=FALSE, cex.lab=0.5, margin=1/2.5)
+trait.plot(phy.f, dat=dat.f, cols=cols, class=fam.f, w=1/20, legend=FALSE, cex.lab=0.4, margin=1/2.75)
+trait.plot(phy.s, dat=dat.s, cols=cols, class=fam.s, w=1/20, legend=FALSE, cex.lab=0.4, margin=1/2.75)
+trait.plot(phy.a, dat=dat.a, cols=cols, class=fam.a, w=1/20, legend=FALSE, cex.lab=0.4, margin=1/2.75)
 dev.off()
 
 
