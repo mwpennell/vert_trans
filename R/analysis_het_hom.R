@@ -3,8 +3,8 @@ source("R/plotting.R")
 
 ## Het-Hom
 
-hh.f <- readRDS("output/het-hom/fish_sampdata_2_results.rds")
-hh.a <- readRDS("output/het-hom/amph_sampdata_2_results.rds")
+hh.f <- readRDS("output/het-hom/fish_sampdata_10_results.rds")
+hh.a <- readRDS("output/het-hom/amph_sampdata_10_results.rds")
 
 ## Translate parameters
 hh.f.mk <- lapply(hh.f, trans.multitrait)
