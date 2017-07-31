@@ -1,5 +1,6 @@
 ## phyndr samplr
 library(diversitree)
+library(dplyr)
 
 phyndr_treedata <- function(x, n){
   phy <- x$phy

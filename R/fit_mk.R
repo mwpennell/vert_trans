@@ -28,3 +28,8 @@ run_mk_sample("output/esd-gsd/squa_sampdata_10.rds")
 
 ## HERM-GONO
 run_mk_sample("output/gon-herm/fish_sampdata_10.rds")
+
+## XY to ZW
+run_mk_sample("output/xy-zw/fish_sampdata_10.rds")
+run_mk_sample("output/xy-zw/squa_sampdata_10.rds")
+run_mk_sample("output/xy-zw/amph_sampdata_10.rds")
