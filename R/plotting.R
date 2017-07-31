@@ -1,4 +1,5 @@
 library(scales)
+library(ggplot2)
 
 ## colours 
 cols <- c("#053061", "#78B7C5", "firebrick3", "#EE6363", "#0B775E", "#D8B70A",
