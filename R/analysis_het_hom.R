@@ -47,7 +47,7 @@ p <- p + theme(panel.background=element_blank(),
                axis.ticks.y = element_blank(),
                axis.text.y=element_blank())
 p 
-ggsave("figs/het-hom-fish-xy.pdf")
+ggsave("figs/hom-het-fish-xy.pdf")
 
 ## Dependency on XY vs ZW systems
 hh.f$g <- hh.f$qH10.G
@@ -60,7 +60,7 @@ p <- p + theme(panel.background=element_blank(),
                axis.ticks.y = element_blank(),
                axis.text.y=element_blank())
 p 
-ggsave("figs/hom-het-fish-xy.pdf")
+ggsave("figs/het-hom-fish-xy.pdf")
 
 hh.a.mk$d <- hh.a.mk$q00.10 + hh.a.mk$q01.11 - hh.a.mk$q10.00 - hh.a.mk$q11.01
 
@@ -87,7 +87,7 @@ p <- p + theme(panel.background=element_blank(),
                axis.ticks.y = element_blank(),
                axis.text.y=element_blank())
 p 
-ggsave("figs/het-hom-amph-xy.pdf")
+ggsave("figs/hom-het-amph-xy.pdf")
 length(which(hh.a$qH01.G > 0)) / nrow(hh.a)
 ## Dependency on XY vs ZW systems
 hh.a$g <- hh.a$qH10.G
@@ -100,7 +100,8 @@ p <- p + theme(panel.background=element_blank(),
                axis.ticks.y = element_blank(),
                axis.text.y=element_blank())
 p 
-ggsave("figs/hom-het-amph-xy.pdf")
+ggsave("figs/het-hom-amph-xy.pdf")
 length(which(hh.a$qH10.G > 0)) / nrow(hh.a)
+
 
 
