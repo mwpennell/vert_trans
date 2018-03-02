@@ -31,6 +31,13 @@ build_esd_gsd <- function(file_name, n_samp){
   esd <- cbind.data.frame(e.states, dd$binomial)
   colnames(esd) <- c("esd.gsd", "binomial")
   
+  ## remove species for which also have sex chromosomes
+  k <- grep("Karyotype", colnames(d))[1]
+  have_gsd <- which(dd[,k] != "")
+  have_esd <- which(esd$esd.gsd == 1)
+  have_both <- intersect(have_gsd, have_esd)
+  esd <- esd[-have_both, ]
+  
   ## remove NAs
   esd <- na.omit(esd)
   

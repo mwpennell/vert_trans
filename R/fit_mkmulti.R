@@ -41,24 +41,36 @@ run_mkmulti_single <- function(x, exp_pr=10, n_step=50000){
     out
 }
 
-library(parallel)
-n_cores <- detectCores() - 2
-cl <- makeCluster(n_cores)
-clusterExport(cl, "run_mkmulti_single")
-ff <- readRDS("output/het-hom/fish_sampdata_10.rds")
-out <- parLapply(cl, ff, function(x) run_mkmulti_single(x))
-saveRDS(out, "output/het-hom/fish_sampdata_10_results.rds")
+#library(parallel)
+#n_cores <- detectCores() - 2
+#cl <- makeCluster(n_cores)
+#clusterExport(cl, "run_mkmulti_single")
+#ff <- readRDS("output/het-hom/fish_sampdata_10.rds")
+#out <- parLapply(cl, ff, function(x) run_mkmulti_single(x))
+#saveRDS(out, "output/het-hom/fish_sampdata_10_results.rds")
 
 #aa <- readRDS("output/het-hom/amph_sampdata_10.rds")
 #out <- parLapply(cl, ff, function(x) {
 #  run_mkmulti_single(x)
 #})
 #saveRDS(out, "output/het-hom/amph_sampdata_10_results.rds")
+#stopCluster(cl)
+
+
+## trap analysis
+library(parallel)
+n_cores <- detectCores() - 3
+cl <- makeCluster(n_cores)
+clusterExport(cl, "run_mkmulti_single")
+ff <- readRDS("output/trap/fish_sampdata_10.rds")
+out <- parLapply(cl, ff, function(x) run_mkmulti_single(x))
+saveRDS(out, "output/trap/fish_sampdata_10_results.rds")
+
+aa <- readRDS("output/trap/amph_sampdata_10.rds")
+out <- parLapply(cl, ff, function(x) {
+  run_mkmulti_single(x)
+})
+saveRDS(out, "output/trap/amph_sampdata_10_results.rds")
 stopCluster(cl)
 
 
-
-#run_mkmulti_sample("output/het-hom/fish_sampdata_10.rds")
-#run_mkmulti_sample("output/het-hom/amph_sampdata_10.rds")
-#run_mkmulti_sample("output/het-hom/fish_sampdata_2.rds", n_step = 10000)
-#run_mkmulti_sample("output/het-hom/amph_sampdata_2.rds", n_step = 10000)

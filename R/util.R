@@ -67,6 +67,30 @@ build.tab.xz.alldat <- function(x){
   dat
 }
 
+
+build.tab.trap <- function(x){
+  tmp <- lapply(x, function(y){
+    st <- cache.mcmc(y)$states
+    esd <- length(which(st == 1))
+    hom <- length(which(st == 2))
+    het <- length(which(st == 3))
+    data.frame(esd=esd, hom=hom, het=het)
+  })
+  tmp <- bind_rows(tmp)
+  summarise_all(tmp, funs(mean))
+}
+
+build.tab.esd.alt <- function(x){
+  tmp <- lapply(x, function(y){
+    st <- cache.mcmc(y)$states
+    gsd <- length(which(st == 1))
+    esd <- length(which(st == 2))
+    data.frame(gsd=gsd, esd=esd)
+  })
+  tmp <- bind_rows(tmp)
+  summarise_all(tmp, funs(mean))
+}
+
 trans.multitrait <- function(x){
   cc <- cache.mcmc(x)
   lik <- make.musse.multitrait(cc$info$phy, data.frame(cc$states),

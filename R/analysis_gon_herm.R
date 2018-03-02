@@ -18,10 +18,11 @@ median(gon.f$r)
 
 p <- ggplot(gon.f, aes(x=d))
 p <- p + geom_histogram(bins = 50, fill=cols[2], alpha=1)
-p <- p + ylab("Posterior density") + xlab("Net transition rate (Gonochorism to Hermaphroditism)")
+p <- p + ylab("Posterior density") 
+p <- p +xlab(bquote('Net rate of transitions '*my^-1*''))
 p <- p + geom_vline(aes(xintercept=0), colour=cols[1], alpha=0.75)
 p <- p + theme(panel.background=element_blank(), 
                axis.ticks.y = element_blank(),
                axis.text.y=element_blank())
 p
-ggsave(filename = "figs/gono-herm-fish.pdf")
+ggsave(filename = "figs/gono-herm-fish_2.pdf")

@@ -2,7 +2,7 @@
 
 library(diversitree)
 
-run_mk_sample <- function(file_name, exp_pr=10, n_step=100000){
+run_mk_sample <- function(file_name, exp_pr=10, n_step=50000){
   td <- readRDS(file_name)
   out <- lapply(td, function(x) {
     phy <- x$phy

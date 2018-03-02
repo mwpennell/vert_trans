@@ -22,19 +22,20 @@ hh.a <- lapply(hh.a, function(x) x[-seq_len(2000),])
 hh.a <- dplyr::bind_rows(hh.a)
 
 
-hh.f.mk$d <- hh.f.mk$q00.10 + hh.f.mk$q01.11 - hh.f.mk$q10.00 - hh.f.mk$q11.01
+hh.f.mk$d <- -(hh.f.mk$q00.10 + hh.f.mk$q01.11 - hh.f.mk$q10.00 - hh.f.mk$q11.01)
 
 length(which(hh.f.mk$d < 0))/nrow(hh.f.mk)
 
 p <- ggplot(hh.f.mk, aes(x=d))
-p <- p + geom_histogram(bins = 50, fill=cols[2], alpha=1) 
-p <- p + ylab("Posterior density") + xlab("Net rate of sex chromosome differentiation")
+p <- p + geom_histogram(bins = 50, fill=cols[2], alpha=1) + xlim(-0.25,0.25)
+p <- p + ylab("Posterior density") 
+p <- p +xlab(bquote('Net rate of transitions '*my^-1*''))
 p <- p + geom_vline(aes(xintercept=0), color=cols[1], alpha=0.75)
 p <- p + theme(panel.background=element_blank(), 
                axis.ticks.y = element_blank(),
                axis.text.y=element_blank())
 p 
-ggsave(filename = "figs/het-hom-fish.pdf")
+ggsave(filename = "figs/het-hom-fish-v2.pdf")
 
 ## Dependency on XY vs ZW systems
 hh.f$g <- hh.f$qH01.G
@@ -62,19 +63,20 @@ p <- p + theme(panel.background=element_blank(),
 p 
 ggsave("figs/het-hom-fish-xy.pdf")
 
-hh.a.mk$d <- hh.a.mk$q00.10 + hh.a.mk$q01.11 - hh.a.mk$q10.00 - hh.a.mk$q11.01
+hh.a.mk$d <- -(hh.a.mk$q00.10 + hh.a.mk$q01.11 - hh.a.mk$q10.00 - hh.a.mk$q11.01)
 
 length(which(hh.a.mk$d < 0))/nrow(hh.a.mk)
 
-p <- ggplot(hh.a.mk, aes(x=d))
-p <- p + geom_histogram(bins = 50, fill=cols[2], alpha=1) 
-p <- p + ylab("Posterior density") + xlab("Net rate of sex chromosome differentiation")
-p <- p + geom_vline(aes(xintercept=0), colour=cols[1], alpha=0.75)
-p <- p + theme(panel.background=element_blank(), 
+q <- ggplot(hh.a.mk, aes(x=d))
+q <- q + geom_histogram(bins = 50, fill=cols[2], alpha=1) + xlim(-0.25,0.25)
+q <- q + xlab(bquote('Net rate of transitions '*my^-1*''))
+q <- q + geom_vline(aes(xintercept=0), colour=cols[1], alpha=0.75)
+q <- q + theme(panel.background=element_blank(), 
                axis.ticks.y = element_blank(),
-               axis.text.y=element_blank())
-p 
-ggsave(filename = "figs/het-hom-amph.pdf")
+               axis.text.y=element_blank(),
+               axis.title.y=element_blank())
+q
+ggsave(filename = "figs/het-hom-amph-v2.pdf")
 
 ## Dependency on XY vs ZW systems
 hh.a$g <- hh.a$qH01.G
